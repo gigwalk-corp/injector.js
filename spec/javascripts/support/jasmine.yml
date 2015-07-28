@@ -11,8 +11,7 @@
 #   - dist/**/*.js
 #
 src_files:
-    - public/js/namespaces.js
-    - public/js/**/*.js
+    - injector-js.js
 
 # stylesheets
 #
@@ -27,18 +26,6 @@ src_files:
 #
 stylesheets:
 
-# helpers
-#
-# Return an array of filepaths relative to spec_dir to include before jasmine specs.
-# Default: ["helpers/**/*.js"]
-#
-# EXAMPLE:
-#
-# helpers:
-#   - helpers/**/*.js
-#
-helpers:
-  - 'helpers/**/*.js'
 # spec_files
 #
 #  Return an array of filepaths relative to spec_dir to include.
@@ -85,5 +72,3 @@ spec_dir:
 # spec_helper: spec/support/jasmine_helper.rb
 #
 spec_helper: spec/support/jasmine_helper.rb
-
-
