@@ -1,25 +1,22 @@
 {
-	"name": "injector-js",
-	"version": "0.2.1",
-	"author": {
-		"name": "Bigger Boat",
-		"email": "paul@paultondeur.nl",
-		"url": "http://biggerboat.nl"
-	},
-    "main": "injector-js.js",
-	"description": "",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/BiggerBoat/injector.js"
-	},
-	"dependencies": {
-		"grunt": "~0.4.0",
-		"grunt-contrib-uglify": "~0.1.2",
-		"grunt-contrib-watch": "~0.3.1",
-		"grunt-contrib-copy": "~0.4.0",
-		"grunt-bump": "~0.0.11"
-	},
-	"engines": {
-		"node": "0.8.x"
-	}
+  "name": "@gigwalk/injector-js",
+  "version": "0.2.0",
+  "author": {
+    "name": "Bigger Boat",
+    "email": "paul@paultondeur.nl",
+    "url": "http://biggerboat.nl"
+  },
+  "main": "injector-js.js",
+  "description": "Dependency injection framework",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gigwalk/injector.js"
+  },
+  "dependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-uglify": "~0.1.2",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-contrib-copy": "~0.4.0",
+    "grunt-bump": "~0.0.11"
+  }
 }
