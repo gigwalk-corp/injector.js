@@ -1,4 +1,7 @@
 *.iml
 *.ipr
 .idea
+*.log
 node_modules
+lib
+coverage

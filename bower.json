@@ -16,8 +16,6 @@
 		"url": "git://github.com/biggerboat/injector.js.git"
 	},
 
-	"main": "injector-js.js",
-	"dependencies": {
-
-	}
+	"main": "lib/injector-js.js",
+	"dependencies": {}
 }
