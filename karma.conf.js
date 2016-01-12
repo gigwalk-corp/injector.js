@@ -1,10 +1,33 @@
 // Karma configuration
-// Generated on Mon Jan 11 2016 16:38:34 GMT-0800 (PST)
-const webpackConfig = Object.assign({}, {
-    devtool: 'inline-source-map'
-}, require('./webpack.config'));
+const path = require('path');
+const webpackConfig = {
+    devtool: 'inline-source-map',
+    module: {
+        preLoaders: [{
+            // transpile all files except testing sources with babel as usual
+            test: /\.js$/,
+            include: path.resolve('spec/'),
+            exclude: [
+                path.resolve('src/'),
+                path.resolve('node_modules/')
+            ],
+            loader: 'babel'
+        }, {
+            // transpile and instrument only testing sources with babel-istanbul
+            test: /\.js$/,
+            include: path.resolve('src/'),
+            loader: 'babel-istanbul',
+            query: {
+                cacheDirectory: true
+            }
+        }]
+    }
+};
+const reporters = ['dots', 'coverage'];
 
-delete webpackConfig.entry;
+if (process.env.CI) {
+    reporters.push('coveralls');
+}
 
 module.exports = function karmaConfig(config) {
     config.set({
@@ -33,7 +56,7 @@ module.exports = function karmaConfig(config) {
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
+        reporters: reporters, // eslint-disable-line
 
         // web server port
         port: 9876,
@@ -56,12 +79,28 @@ module.exports = function karmaConfig(config) {
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: false,
+        singleRun: true,
         webpack: webpackConfig,
         webpackMiddleware: {
             // webpack-dev-middleware configuration
             // i. e.
             noInfo: true
+        },
+
+        coverageReporter: {
+            dir: './coverage',
+            reporters: [
+                {
+                    type: 'html',
+                    subdir: 'report-html'
+                }, {
+                    type: 'text'
+                }, {
+                    type: 'lcov',
+                    subdir: 'report-lcov'
+                }
+            ]
         }
+
     });
 };

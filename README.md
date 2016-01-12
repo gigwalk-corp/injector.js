@@ -1,4 +1,4 @@
-#Injector.js [![Build Status](https://travis-ci.org/biggerboat/injector.js.png)](https://travis-ci.org/biggerboat/injector.js)
+#Injector.js [![Build Status](https://travis-ci.org/gigwalk-corp/injector.js.svg)](https://travis-ci.org/gigwalk-corp/injector.js)[![Coverage Status](https://coveralls.io/repos/gigwalk-corp/injector.js/badge.svg?branch=master&service=github)](https://coveralls.io/github/gigwalk-corp/injector.js?branch=master)
 This library is a simple JavaScript dependency injector inspired by [SwiftSuspenders](https://github.com/tschneidereit/SwiftSuspenders)
 
 ***
@@ -65,9 +65,9 @@ In order to get "Hello world" out of the injector we can just call:
 injector.getInstance('myType');
 ```
 ***
-	
+
 ### More advanced/Real world usage
-Though the above sounds nice, its a bit to complex for just passing on one string to another object. It gets more interesting when you have lots of objects that needs to be injected in many other objects. 
+Though the above sounds nice, its a bit to complex for just passing on one string to another object. It gets more interesting when you have lots of objects that needs to be injected in many other objects.
 
 Essentially the string "Hello world" from our previous example is just an object. Thus the injector is perfectly capable of working with mapping objects. So one could for example do the following:
 ```JavaScript
@@ -83,11 +83,11 @@ Creating a singleton out of the class `MyModel` would be as easy as this:
 injector.map('myModel').toSingleton(MyModel);
 ```
 Under the hood this is just the same as:
-```JavaScript	
+```JavaScript
 var myModelInstance = new MyModel();
 injector.map('myModel').toValue(myModelInstance);
 ```
-In other words we just create an instance once and pass it on every time `myModel` is requested. 
+In other words we just create an instance once and pass it on every time `myModel` is requested.
 
 #### Injecting new instances
 Lets assume again that you have a class `MyModel`. But instead of mapping the same instance into each object, you just want to map it to a new and unique instance every time. To achieve this, you just need to map it as following:
@@ -99,7 +99,7 @@ Now every time a new model will be returned when a model is requested. One might
 injector.map('myModel').toType(MyDevModel);
 ```
 Once switching to production you could just switch this to:
-```JavaScript	
+```JavaScript
 injector.map('myModel').toType(MyProductionModel);
 ```
 After that all instances will be created using this production model.
@@ -116,7 +116,7 @@ var objectToInjectInto = {
 ```
 
 When we choose a different name for the the type, such as a generic name `model` for example, it would become unclear which data type to expect:
-```JavaScript	
+```JavaScript
 injector.map('model').toValue(myModelInstance);
 var objectToInjectInto = {
 	model: "inject"
@@ -175,8 +175,8 @@ var aboutView = {
 
 injector.injectInto(homeView);
 injector.injectInto(aboutView);
-```	
-	
+```
+
 #### Postconstructs
 Because injection always takes place **after** the object has been instantiated you could not make use of the "soon to be injected" properties. A postConstruct will help with this and is in fact nothing more than a method to be called on the object after injection.
 
@@ -187,17 +187,17 @@ injector.map('myModel').toSingleton(MyModel);
 var objectToInjectInto = {
 	postConstructs: ['onPostConstruct'],
 	myModel : "inject",
-	
+
 	onPostConstruct: function() {
 		console.log("myModel has been injected with", this.myModel)
 	}
 }
-injector.injectInto(objectToInjectInto); 
+injector.injectInto(objectToInjectInto);
 ```
-	
+
 In most cases you probably just want one method to be called, but you could define multiple methods in the array.
 When the `postConstructs` array is not defined, or empty, nothing will be called after injection.
-	
+
 ***
 
 ## Dependencies
@@ -205,7 +205,7 @@ This library is completely independent from other libraries.
 
 
 ## Framework support
-You should be able to use the dependency injector together with other frameworks and libraries. As far as my experience goes I have used this in combination with [Backbone.js](https://github.com/documentcloud/backbone/). I have extended Backbone.View, so all my views can automatically be injected by the models of my need. 
+You should be able to use the dependency injector together with other frameworks and libraries. As far as my experience goes I have used this in combination with [Backbone.js](https://github.com/documentcloud/backbone/). I have extended Backbone.View, so all my views can automatically be injected by the models of my need.
 An example implementation of this can be found at [Navigator-Injector-Backbone-Command-TodoMVC example](https://github.com/BiggerBoat/nibc-todomvc)
 
 ## Running the specs
