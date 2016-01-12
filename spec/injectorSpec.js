@@ -1,4 +1,4 @@
-import { Injector } from '../src';
+import { Injector } from '../src/index';
 
 describe('Injector', () => {
     let injector;

@@ -4,6 +4,8 @@ const webpackConfig = Object.assign({}, {
     devtool: 'inline-source-map'
 }, require('./webpack.config'));
 
+delete webpackConfig.entry;
+
 module.exports = function karmaConfig(config) {
     config.set({
 
