@@ -1,22 +1,46 @@
 {
   "name": "@gigwalk/injector-js",
+  "description": "Dependency injection framework",
   "version": "0.3.0",
+  "license": "MIT",
   "author": {
     "name": "Bigger Boat",
     "email": "paul@paultondeur.nl",
     "url": "http://biggerboat.nl"
   },
+  "contributors": [
+    {
+      "name": "Steven Bassett",
+      "email": "steven.j.bassett@gmail.com",
+      "url": "http://bassettsj.me"
+    }
+  ],
   "main": "injector-js.js",
-  "description": "Dependency injection framework",
   "repository": {
     "type": "git",
     "url": "https://github.com/gigwalk/injector.js"
   },
-  "dependencies": {
+  "scripts": {
+    "test": "karma start",
+    "tdd": "karma start --no-single-run"
+  },
+  "devDependencies": {
+    "babel-core": "^6.4.0",
+    "babel-loader": "^6.2.1",
+    "babel-preset-es2015": "^6.3.13",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^3.1.0",
     "grunt": "~0.4.0",
+    "grunt-bump": "~0.0.11",
+    "grunt-contrib-copy": "~0.4.0",
     "grunt-contrib-uglify": "~0.1.2",
     "grunt-contrib-watch": "~0.3.1",
-    "grunt-contrib-copy": "~0.4.0",
-    "grunt-bump": "~0.0.11"
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.19",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.3",
+    "karma-webpack": "^1.7.0",
+    "phantomjs": "^1.9.19",
+    "webpack": "^1.12.11"
   }
 }
