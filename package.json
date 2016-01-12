@@ -1,6 +1,7 @@
 {
   "name": "@gigwalk/injector-js",
   "description": "Dependency injection framework",
+  "homepage": "https://github.com/gigwalk-corp/injector.js",
   "version": "0.3.0",
   "license": "MIT",
   "author": {
@@ -15,14 +16,17 @@
       "url": "http://bassettsj.me"
     }
   ],
-  "main": "injector-js.js",
+  "main": "lib/injector-js.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/gigwalk/injector.js"
   },
   "scripts": {
     "test": "karma start",
-    "tdd": "karma start --no-single-run"
+    "tdd": "karma start --no-single-run",
+    "webpack": "webpack --progress",
+    "webpack-dist": "webpack --progress -p --config ./webpack.dist.config.js",
+    "build": "npm run webpack && npm run webpack-dist"
   },
   "devDependencies": {
     "babel-core": "^6.4.0",
@@ -44,7 +48,10 @@
     "karma-phantomjs-launcher": "^0.2.3",
     "karma-sourcemap-loader": "^0.3.6",
     "karma-webpack": "^1.7.0",
+    "lodash": "^3.10.1",
+    "moment": "^2.11.1",
     "phantomjs": "^1.9.19",
+    "release-it": "^2.3.1",
     "webpack": "^1.12.11"
   }
 }
