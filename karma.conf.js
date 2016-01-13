@@ -3,19 +3,22 @@ const path = require('path');
 const webpackConfig = {
     devtool: 'inline-source-map',
     module: {
-        preLoaders: [{
+        loaders: [{
             // transpile all files except testing sources with babel as usual
             test: /\.js$/,
             include: path.resolve('spec/'),
             exclude: [
                 path.resolve('src/'),
-                path.resolve('node_modules/')
+                /(bower_components|node_modules)/
             ],
             loader: 'babel'
         }, {
             // transpile and instrument only testing sources with babel-istanbul
             test: /\.js$/,
             include: path.resolve('src/'),
+            exclude: [
+                /(bower_components|node_modules)/
+            ],
             loader: 'babel-istanbul',
             query: {
                 cacheDirectory: true
@@ -23,7 +26,7 @@ const webpackConfig = {
         }]
     }
 };
-const reporters = ['dots', 'coverage'];
+const reporters = ['dots', 'coverage', 'html'];
 
 if (process.env.CI) {
     reporters.push('coveralls');
@@ -41,6 +44,8 @@ module.exports = function karmaConfig(config) {
 
         // list of files / patterns to load in the browser
         files: [
+            { pattern: require.resolve('es5-shim'), watched: false, included: true, served: true, nocache: false },
+            { pattern: require.resolve('es5-shim/es5-sham'), watched: false, included: true, served: true, nocache: false },
             './test.js'
         ],
 
