@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export default class SimpleComponent extends Component {
-    static propTypes = {
-        injectedValue: React.PropTypes.string
+    static contextTypes = {
+        injectedValue: PropTypes.string.isRequired
     };
-    static injectedValue = 'inject';
     render() {
-        return <h1>{this.injectedValue}</h1>;
+        return <h1>{this.context.injectedValue}</h1>;
     }
 }
