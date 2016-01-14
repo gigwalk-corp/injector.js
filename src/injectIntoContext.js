@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+
 export class InjectorContextError extends Error {}
 
 export default function injectIntoContext(injector, Component) {
