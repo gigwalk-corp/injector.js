@@ -4,5 +4,14 @@
         "stage-0",
         "react"
     ],
-    "plugins": ["syntax-decorators"]
+    "plugins": [
+        "add-module-exports"
+    ],
+    "env": {
+        "production": {
+            "plugins": [
+                "transform-runtime"
+            ]
+        }
+    }
 }

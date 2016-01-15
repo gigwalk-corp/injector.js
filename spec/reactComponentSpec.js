@@ -17,11 +17,11 @@ describe('React Integration', () => {
 
     it('should inject simple values into the component class', () => {
         injector.map('injectedValue').toValue('expected');
-        injectIntoContext(injector, SimpleContainer);
-        renderer.render(<SimpleContainer />);
+        const InjectedSimpleContainer = injectIntoContext(SimpleContainer);
+        renderer.render(<InjectedSimpleContainer injector={injector} />);
         const result = renderer.getRenderOutput();
         expect(result.props.children).toEqual(<SimpleComponent/>);
-        const doc = renderIntoDocument(<SimpleContainer/>);
+        const doc = renderIntoDocument(<InjectedSimpleContainer injector={injector}/>);
         const h1 = TestUtils.findRenderedDOMComponentWithTag(doc, 'h1');
         expect(h1.textContent).toEqual('expected');
     });

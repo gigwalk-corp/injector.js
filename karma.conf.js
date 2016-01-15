@@ -11,7 +11,10 @@ const webpackConfig = {
                 path.resolve('src/'),
                 /(bower_components|node_modules)/
             ],
-            loader: 'babel'
+            loader: 'babel',
+            query: {
+                cacheDirectory: true
+            }
         }, {
             // transpile and instrument only testing sources with babel-istanbul
             test: /\.js$/,
