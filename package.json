@@ -2,6 +2,7 @@
   "name": "@gigwalk/injector-js",
   "description": "Dependency injection framework",
   "homepage": "https://github.com/gigwalk-corp/injector.js",
+  "bugs": "https://github.com/gigwalk-corp/injector.js/issues",
   "version": "0.3.0",
   "license": "MIT",
   "author": {
@@ -16,7 +17,7 @@
       "url": "http://bassettsj.me"
     }
   ],
-  "main": "lib/injector-js.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/gigwalk/injector.js"
@@ -27,7 +28,8 @@
     "webpack": "webpack --progress",
     "webpack-dist": "webpack --progress -p --config ./webpack.dist.config.js",
     "build:node": "babel src --out-dir lib --source-maps",
-    "build": "rm -rf ./lib/* && npm run webpack &&  npm run webpack-dist && BABEL_ENV='production' npm run build:node"
+    "build": "rm -rf ./lib/* && npm run webpack &&  npm run webpack-dist && BABEL_ENV='production' npm run build:node",
+    "prepublish": "npm run build"
   },
   "devDependencies": {
     "babel-cli": "^6.4.0",
@@ -61,14 +63,13 @@
     "react": "^0.14.6",
     "react-addons-test-utils": "^0.14.6",
     "react-dom": "^0.14.6",
-    "release-it": "^2.3.1",
     "webpack": "^1.12.11",
     "webpack-umd-external": "^1.0.2"
   },
   "dependencies": {
     "babel-runtime": "6"
   },
-  "peerDependencies": {
+  "optionalDependencies": {
     "react": "0.14"
   }
 }
