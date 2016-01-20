@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import TestUtils, { createRenderer, renderIntoDocument } from 'react-addons-test-utils';
 import { Injector } from '../src/';
-import injectIntoContext from '../src/injectIntoContext';
+import injectIntoContext, { InjectorContextError } from '../src/injectIntoContext';
 import SimpleContainer from './fixtures/SimpleContainer';
 import SimpleComponent from './fixtures/SimpleComponent';
 import AppContainer from './fixtures/AppContainer';
@@ -24,6 +24,14 @@ describe('React Integration', () => {
         const doc = renderIntoDocument(<InjectedSimpleContainer injector={injector}/>);
         const h1 = TestUtils.findRenderedDOMComponentWithTag(doc, 'h1');
         expect(h1.textContent).toEqual('expected');
+    });
+
+    it('should throw an error if context types are not defined on the Component', () => {
+        expect(() => injectIntoContext(SimpleComponent)).toThrowError(Error, 'Expected childContextTypes to be defined on the container element');
+    });
+
+    it('should throw an error if the component doesn\'t declare injectable properties', () => {
+        expect(() => injectIntoContext(AppContainer)).toThrowError(Error, 'Exepected static strings to be defined on the container class');
     });
 
     it('should allow basic context integration', () => {

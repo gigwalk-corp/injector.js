@@ -1,9 +1,5 @@
-import 'babel-polyfill';
 import { PropTypes } from 'react';
-import { Injector } from './index.js';
-class InjectorContextError extends Error {
-
-}
+import Injector from './Injector';
 /**
  * Creates an extended component that will use injector-js DI to inject into the context.
  * @param  {React.Component} Component The Component To Extend
@@ -11,19 +7,16 @@ class InjectorContextError extends Error {
  */
 export default function createInjectorContainer(Component) {
     if (!Component.hasOwnProperty('childContextTypes')) {
-        throw new InjectorContextError('Expected childContextTypes to be defined on the container element', Component);
+        throw new Error('Expected childContextTypes to be defined on the container element', Component);
     }
 
-    const injectables = Object.entries(Component)
+    const injectables = Object.keys(Component).map(key => [key, Component[key]])
         .filter(([, value]) => value === 'inject');
     if (!injectables.length) {
-        throw new InjectorContextError('Exepected static strings to be defined on the container class', Component);
+        throw new Error('Exepected static strings to be defined on the container class', Component);
     }
 
     const temp = class extends Component {
-        constructor() {
-            super(...arguments);
-        }
 
         static get propTypes() {
             return {
@@ -50,4 +43,4 @@ export default function createInjectorContainer(Component) {
     temp.displayName = `Injected${Component.name}`;
 
     return temp;
-};
+}

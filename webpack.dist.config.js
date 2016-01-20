@@ -3,11 +3,6 @@ const baseConfig = require('./webpack.config');
 const _ = require('lodash');
 
 const distConfig = _.assign({}, {
-    externals: {
-        'babel-runtime': 'require("babel-runtime")',
-        'babel-polyfill': 'require("babel-polyfill")'
-    },
-
     plugins: baseConfig.plugins.concat([
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.NoErrorsPlugin(),
