@@ -1,5 +1,5 @@
-#Injector.js [![Build Status](https://travis-ci.org/gigwalk-corp/injector.js.svg)](https://travis-ci.org/gigwalk-corp/injector.js)[![Coverage Status](https://coveralls.io/repos/gigwalk-corp/injector.js/badge.svg?branch=master&service=github)](https://coveralls.io/github/gigwalk-corp/injector.js?branch=master)
-This library is a simple JavaScript dependency injector inspired by [SwiftSuspenders](https://github.com/tschneidereit/SwiftSuspenders)
+# @gigwalk/injector-js [![Build Status](https://travis-ci.org/gigwalk-corp/injector.js.svg)](https://travis-ci.org/gigwalk-corp/injector.js)[![Coverage Status](https://coveralls.io/repos/gigwalk-corp/injector.js/badge.svg?branch=master&service=github)](https://coveralls.io/github/gigwalk-corp/injector.js?branch=master)
+> This library is a simple JavaScript dependency injector inspired by [SwiftSuspenders](https://github.com/tschneidereit/SwiftSuspenders).
 
 ***
 ## Testsuite
@@ -208,21 +208,54 @@ This library is completely independent from other libraries.
 You should be able to use the dependency injector together with other frameworks and libraries. As far as my experience goes I have used this in combination with [Backbone.js](https://github.com/documentcloud/backbone/). I have extended Backbone.View, so all my views can automatically be injected by the models of my need.
 An example implementation of this can be found at [Navigator-Injector-Backbone-Command-TodoMVC example](https://github.com/BiggerBoat/nibc-todomvc)
 
+#### React Component Integration
+
+Using the injectIntoComponent utility function you can inject values into a React component:
+
+```js
+import { Injector } from '@gigwalk/injector-js';
+import injectIntoComponent from '@gigwalk/injector-js/lib/injectIntoComponent';
+
+// Injected values are attached to the context of the any of the child components
+class ChildComponent extends Component {
+    contextTypes = {
+        myModel: PropTypes.object.isRequired,
+    };
+
+    render() {
+        const { name, age, photoUrl } = this.context.myModel.attributes();
+        return (
+            <article>
+                <h4>{name}</h4>
+                <p>Age: {age} y/o </p>
+                <img src={photoUrl} alt={`portrait photo of ${name}`} />
+            </article>
+        );
+    }
+}
+
+const Container = injectIntoComponent(class Container extends Component {
+    static myModel = 'inject';
+    static childContextTypes = {
+        myModel: PropTypes.object.isRequired,
+    };
+
+    render() {
+        return (
+            <div>
+                <ChildComponent/>
+            </div>
+        );
+    }
+});
+
+```
+
 ## Running the specs
 
-Injector.js was build with [TDD](http://en.wikipedia.org/wiki/Test-driven_development). We created a test suite with [Jasmine gem](https://github.com/pivotal/jasmine-gem). Every commit and pull requests gets tested with [Travis-ci](https://travis-ci.org/biggerboat/injector.js).
+Injector.js was build with [TDD](http://en.wikipedia.org/wiki/Test-driven_development). Every commit and pull requests gets tested with [Travis-ci](https://travis-ci.org/gigwalk-corp/injector.js). To run the tests locally, run `npm install` and then `npm test`.
 
-You can run the test locally by installing Ruby 2.x.x. For more information on how to install Ruby check the [Rbenv](https://github.com/sstephenson/rbenv#installation) installation guide.
-
-When you have Ruby and Bundler installed run this command to install all dependencies:
-
-	$ bundle install
-
-To see the tests in a browser run this command:
-
-	$ bundle exec rake jasmine
-
-Then open your browser with this url; [http://localhost:8888/](http://localhost:8888/)
+You
 
 ## Resources
 * [Navigator-Injector-Backbone-Command-TodoMVC example](https://github.com/BiggerBoat/nibc-todomvc) - An example implementation of how you could use the injector in a TodoMVC project. It contains also a set of other libraries that Bigger Boat has open sourced

@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import TestUtils, { createRenderer, renderIntoDocument } from 'react-addons-test-utils';
 import { Injector } from '../src/';
-import injectIntoContext, { InjectorContextError } from '../src/injectIntoContext';
+import injectoIntoComponent from '../src/injectIntoComponent';
 import SimpleContainer from './fixtures/SimpleContainer';
 import SimpleComponent from './fixtures/SimpleComponent';
 import AppContainer from './fixtures/AppContainer';
 import UserAvatar from './fixtures/UserAvatar';
 
-describe('React Integration', () => {
+describe('React Integration Inject into Component', () => {
     let injector;
     let renderer;
     beforeEach(() => {
@@ -17,7 +17,7 @@ describe('React Integration', () => {
 
     it('should inject simple values into the component class', () => {
         injector.map('injectedValue').toValue('expected');
-        const InjectedSimpleContainer = injectIntoContext(SimpleContainer);
+        const InjectedSimpleContainer = injectoIntoComponent(SimpleContainer);
         renderer.render(<InjectedSimpleContainer injector={injector} />);
         const result = renderer.getRenderOutput();
         expect(result.props.children).toEqual(<SimpleComponent/>);
@@ -27,11 +27,11 @@ describe('React Integration', () => {
     });
 
     it('should throw an error if context types are not defined on the Component', () => {
-        expect(() => injectIntoContext(SimpleComponent)).toThrowError(Error, 'Expected childContextTypes to be defined on the container element');
+        expect(() => injectoIntoComponent(SimpleComponent)).toThrowError(Error, 'Expected childContextTypes to be defined on the container element');
     });
 
     it('should throw an error if the component doesn\'t declare injectable properties', () => {
-        expect(() => injectIntoContext(AppContainer)).toThrowError(Error, 'Exepected static strings to be defined on the container class');
+        expect(() => injectoIntoComponent(AppContainer)).toThrowError(Error, 'Exepected static strings to be defined on the container class');
     });
 
     it('should allow basic context integration', () => {
