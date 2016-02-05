@@ -23,4 +23,4 @@ export default class AppContainer extends Component {
             </div>
         );
     }
-};
+}

@@ -30,12 +30,14 @@ export default class Injector {
     }
 
     _postConstruct(object) {
+        /* eslint-disable no-nested-ternary */
         const postConstructs = object.postConstructs !== undefined ?
             object.postConstructs instanceof Array ? object.postConstructs : [] : [];
+        /* eslint-enable no-nested-ternary */
         let index;
         let methodName;
         let method;
-
+        /* eslint-disable guard-for-in */
         for (index in postConstructs) {
             methodName = postConstructs[index];
             method = object[methodName] === undefined ? null : object[methodName];
@@ -44,6 +46,7 @@ export default class Injector {
                 method.apply(object);
             }
         }
+        /* eslint-enable guard-for-in */
     }
 
     map(type, name) {
@@ -71,33 +74,31 @@ export default class Injector {
     }
 
     getInstance(type, name) {
-        if (this.hasMapping(type, name)) {
-            return this.getMapping(type, name).getValue();
-        } else {
+        if (!this.hasMapping(type, name)) {
             const nameError = name === undefined ? '' : ` by name ${name}`;
             throw new Error(
                 `Cannot return instance "${type}${nameError}" because no mapping has been found`
             );
         }
+
+        return this.getMapping(type, name).getValue();
     }
 
     getMapping(type, name) {
-        if (this.hasMapping(type, name)) {
-            const mappingID = this._getMappingID(type, name);
-            if (this._mappings[mappingID] !== undefined) {
-                return this._mappings[mappingID];
-            } else {
-                return this.getParentInjector().getMapping(type, name);
-            }
-        } else {
+        if (!this.hasMapping(type, name)) {
             const nameError = name === undefined ? '' : ` by name ${name}`;
             throw new Error(`Mapping "${type}${nameError}" was not found`);
         }
+
+        const mappingID = this._getMappingID(type, name);
+        return this._mappings[mappingID] !== undefined ?
+            this._mappings[mappingID] :
+            this.getParentInjector().getMapping(type, name);
     }
 
     injectInto(object) {
         let injectionObject;
-
+        /* eslint-disable guard-for-in, no-param-reassign */
         for (const member in object) {
             injectionObject = stringToObject(member, object[member]);
 
@@ -111,6 +112,7 @@ export default class Injector {
                 }
             }
         }
+        /* eslint-enable guard-for-in, no-param-reassign */
 
         this._postConstruct(object);
     }

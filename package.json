@@ -23,6 +23,7 @@
     "url": "https://github.com/gigwalk/injector.js"
   },
   "scripts": {
+    "pretest": "eslint .",
     "test": "karma start",
     "tdd": "karma start --no-single-run",
     "webpack": "webpack --progress",
