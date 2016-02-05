@@ -12,7 +12,7 @@ module.exports = {
     devtool: 'source-map',
     entry: {
         injector: './src/index',
-        injectIntoContext: './src/injectIntoContext.js'
+        injectIntoContext: './src/injectIntoComponent'
     },
     output: {
         path: path.join(__dirname, './lib/standalone'),
