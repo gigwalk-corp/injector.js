@@ -1,6 +1,17 @@
 {
     "presets": [
         "es2015",
-        "stage-1"
-    ]
+        "stage-0",
+        "react"
+    ],
+    "plugins": [
+        "add-module-exports"
+    ],
+    "env": {
+        "production": {
+            "plugins": [
+                "transform-runtime"
+            ]
+        }
+    }
 }

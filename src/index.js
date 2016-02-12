@@ -1,4 +1,10 @@
-export InjectionMapping from './InjectionMapping';
-export Injector from './Injector';
 import stringToObject from './stringToObject';
-export const utils = { stringToObject };
+import InjectionMapping from './InjectionMapping';
+import Injector from './Injector';
+const utils = { stringToObject };
+
+export default {
+    Injector,
+    InjectionMapping,
+    utils
+};

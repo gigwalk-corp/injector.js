@@ -16,6 +16,6 @@ const distConfig = _.assign({}, {
     ])
 }, baseConfig);
 
-distConfig.output.filename = 'injector-js.min.js';
+distConfig.output.filename = '[name].min.js';
 
 module.exports = distConfig;
