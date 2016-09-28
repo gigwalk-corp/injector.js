@@ -20,5 +20,8 @@
         "react/jsx-filename-extension": 0,
         "no-prototype-builtins": 0,
         "react/jsx-indent": [2, 4]
+    },
+    "globals": {
+        "React$Component"
     }
 }

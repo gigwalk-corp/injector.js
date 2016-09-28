@@ -1,9 +1,9 @@
-// @flow weak
+// @flow
 import InjectionMapping from './InjectionMapping';
 import stringToObject from './stringToObject';
 
 export default class Injector {
-    _mappings: { [mapping: string]: mixed };
+    _mappings: { [mapping: string]: InjectionMapping };
     _parentInjector: ?Injector;
     constructor(parentInjector?: Injector) {
         this._mappings = {};
@@ -12,7 +12,7 @@ export default class Injector {
         this._parentInjector = parentInjector || null;
     }
 
-    _createMapping(type, name, id) {
+    _createMapping(type: string, name?: string, id: string): InjectionMapping {
         if (this._hasOwnMapping(type, name)) {
             throw new Error(`Already has mapping for ${type}`);
         }
@@ -23,16 +23,16 @@ export default class Injector {
         return mapping;
     }
 
-    _getMappingID(type, name = '') { // eslint-disable-line class-methods-use-this
+    _getMappingID(type: string, name: string = '') { // eslint-disable-line class-methods-use-this
         return `${type}|${name}`;
     }
 
-    _hasOwnMapping(type, name) {
+    _hasOwnMapping(type: string, name?: string): boolean {
         const mappingID = this._getMappingID(type, name);
         return (this._mappings[mappingID] !== undefined);
     }
 
-    _postConstruct(object) {  // eslint-disable-line class-methods-use-this
+    _postConstruct(object: { postConstructs: ?Array<any> }) {  // eslint-disable-line class-methods-use-this
         /* eslint-disable no-nested-ternary */
         const postConstructs = object.postConstructs !== undefined ?
            object.postConstructs instanceof Array ? object.postConstructs : [] : [];
@@ -54,12 +54,12 @@ export default class Injector {
         /* eslint-enable guard-for-in */
     }
 
-    map(type, name) {
+    map(type: string, name?: string) {
         const mappingID = this._getMappingID(type, name);
         return this._mappings[mappingID] || this._createMapping(type, name, mappingID);
     }
 
-    unmap(type, name) {
+    unmap(type: string, name?: string) {
         if (this.hasMapping(type, name)) {
             const mappingID = this._getMappingID(type, name);
             delete this._mappings[mappingID];
@@ -69,16 +69,16 @@ export default class Injector {
         }
     }
 
-    hasMapping(type, name) {
+    hasMapping(type: string, name?: string): boolean {
         return this._hasOwnMapping(type, name) ||
-            (this._parentInjector != null && this._parentInjector.hasMapping(type, name)); // eslint-disable-line eqeqeq
+            (this._parentInjector != null && this._parentInjector.hasMapping(type, name));
     }
 
-    hasDirectMapping(type, name) {
+    hasDirectMapping(type: string, name?: string): boolean {
         return this._hasOwnMapping(type, name);
     }
 
-    getInstance(type, name) {
+    getInstance(type: string, name?: string): mixed {
         if (!this.hasMapping(type, name)) {
             const nameError = name === undefined ? '' : ` by name ${name}`;
             throw new Error(
@@ -89,7 +89,7 @@ export default class Injector {
         return this.getMapping(type, name).getValue();
     }
 
-    getMapping(type, name) {
+    getMapping(type: string, name?: string): InjectionMapping {
         if (!this.hasMapping(type, name)) {
             const nameError = name === undefined ? '' : ` by name ${name}`;
             throw new Error(`Mapping "${type}${nameError}" was not found`);
@@ -98,16 +98,21 @@ export default class Injector {
         const mappingID = this._getMappingID(type, name);
         return this._mappings[mappingID] !== undefined ?
             this._mappings[mappingID] :
-            this.getParentInjector().getMapping(type, name);
+            (() => {
+                const parent = this.getParentInjector();
+                if (!(parent instanceof Injector)) {
+                    throw new Error('Could not get parent injector');
+                }
+                return parent.getMapping(type, name);
+            })();
     }
 
-    injectInto(object) {
-        let injectionObject;
+    injectInto(object: any) {
         /* eslint-disable guard-for-in, no-param-reassign */
         for (const member in object) {  // eslint-disable-line no-restricted-syntax
-            injectionObject = stringToObject(member, object[member]);
+            const injectionObject = stringToObject(member, object[member]);
 
-            if (injectionObject !== null) {
+            if (injectionObject != null) {
                 if (this.hasMapping(injectionObject.type, injectionObject.name)) {
                     object[member] = this.getInstance(injectionObject.type, injectionObject.name);
                 } else {
@@ -127,19 +132,19 @@ export default class Injector {
         this.map('injector').toValue(this);
     }
 
-    getParentInjector() {
+    getParentInjector(): ?Injector {
         return this._parentInjector;
     }
 
-    setParentInjector(parentInjector) {
-        if (parentInjector !== null && !(parentInjector instanceof Injector)) {
+    setParentInjector(parentInjector: Injector) {
+        if (parentInjector != null && !(parentInjector instanceof Injector)) {
             throw new Error('Cannot set the parentInjector because it is not an injector');
         }
 
         this._parentInjector = parentInjector;
     }
 
-    createChildInjector() {
+    createChildInjector(): Injector {
         return new Injector(this);
     }
 }

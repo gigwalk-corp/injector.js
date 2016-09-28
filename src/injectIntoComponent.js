@@ -6,7 +6,7 @@ import Injector from './Injector';
  * @param  {React.Component} Component The Component To Extend
  * @return {React.Component}           Extended Component
  */
-export default function injectIntoComponent(Component) {
+export default function injectIntoComponent(Component: any) {
     if (!Component.hasOwnProperty('childContextTypes')) {
         throw new Error('Expected childContextTypes to be defined on the container element', Component);
     }

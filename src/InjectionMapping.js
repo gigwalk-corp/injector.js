@@ -1,11 +1,11 @@
-// @flow weak
+// @flow
 export default class InjectionMapping {
     _type: mixed;
-    _name: string;
+    _name: ?string;
     _id: string;
     _value: mixed;
     _toType: mixed;
-    constructor(type: mixed, name: string, id: string) {
+    constructor(type: mixed, name?: string, id: string) {
         this._type = type;
         this._name = name;
         this._id = id;
@@ -36,7 +36,7 @@ export default class InjectionMapping {
         this._value = value;
     }
 
-    toType(type) {
+    toType(type: mixed) {
         if (!this._validateBeforeCreation()) {
             return;
         }
@@ -44,18 +44,18 @@ export default class InjectionMapping {
         this._toType = type;
     }
 
-    toSingleton(Type) {
+    toSingleton(Type: Function) {
         this.toValue(new Type());
     }
 
-    getValue() {
+    getValue(): mixed {
         if (!this._isValid()) {
             throw new Error(`Could not get value for ${this._id} because the mapping is invalid`);
         }
 
-        if (this._value !== null) {
+        if (this._value != null) {
             return this._value;
-        } else if (this._toType !== null) {
+        } else if (this._toType != null) {
             // $FlowFixMe should define that it is a instantiable thing
             return new this._toType();
         }
