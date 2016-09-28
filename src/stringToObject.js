@@ -1,3 +1,4 @@
+// @flow weak
 /**
  * Parse the value of a object to find out how we should inject
  * @param type The default type in the mapping. Could be overridden by injectionString

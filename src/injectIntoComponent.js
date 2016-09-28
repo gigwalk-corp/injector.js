@@ -1,3 +1,4 @@
+// @flow weak
 import { PropTypes } from 'react';
 import Injector from './Injector';
 /**

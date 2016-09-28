@@ -1,8 +1,11 @@
+// @flow weak
 import InjectionMapping from './InjectionMapping';
 import stringToObject from './stringToObject';
 
 export default class Injector {
-    constructor(parentInjector) {
+    _mappings: { [mapping: string]: mixed };
+    _parentInjector: ?Injector;
+    constructor(parentInjector?: Injector) {
         this._mappings = {};
         this._parentInjector = null;
         this.map('injector').toValue(this);
@@ -32,13 +35,15 @@ export default class Injector {
     _postConstruct(object) {
         /* eslint-disable no-nested-ternary */
         const postConstructs = object.postConstructs !== undefined ?
-            object.postConstructs instanceof Array ? object.postConstructs : [] : [];
+           object.postConstructs instanceof Array ? object.postConstructs : [] : [];
         /* eslint-enable no-nested-ternary */
         let index;
         let methodName;
         let method;
         /* eslint-disable guard-for-in */
+        // $FlowFixMe should refactor this code once we know what it should be
         for (index in postConstructs) {
+            // $FlowFixMe should refactor this code once we know what it should be
             methodName = postConstructs[index];
             method = object[methodName] === undefined ? null : object[methodName];
 
@@ -66,7 +71,7 @@ export default class Injector {
 
     hasMapping(type, name) {
         return this._hasOwnMapping(type, name) ||
-            (this._parentInjector !== null && this._parentInjector.hasMapping(type, name));
+            (this._parentInjector != null && this._parentInjector.hasMapping(type, name)); // eslint-disable-line eqeqeq
     }
 
     hasDirectMapping(type, name) {
