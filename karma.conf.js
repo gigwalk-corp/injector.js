@@ -29,7 +29,7 @@ const webpackConfig = {
         }]
     }
 };
-const reporters = ['dots', 'coverage', 'html'];
+const reporters = ['dots', 'coverage'];
 
 if (process.env.CI) {
     reporters.push('coveralls');
