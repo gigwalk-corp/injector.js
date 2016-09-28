@@ -3,7 +3,7 @@ export default class InjectionMapping {
     _type: mixed;
     _name: ?string;
     _id: string;
-    _value: mixed;
+    _value: any;
     _toType: mixed;
     constructor(type: mixed, name?: string, id: string) {
         this._type = type;
@@ -28,7 +28,7 @@ export default class InjectionMapping {
         return true;
     }
 
-    toValue(value: mixed) {
+    toValue(value: any) {
         if (!this._validateBeforeCreation()) {
             return;
         }
@@ -36,7 +36,7 @@ export default class InjectionMapping {
         this._value = value;
     }
 
-    toType(type: mixed) {
+    toType(type: any) {
         if (!this._validateBeforeCreation()) {
             return;
         }
@@ -48,7 +48,7 @@ export default class InjectionMapping {
         this.toValue(new Type());
     }
 
-    getValue(): mixed {
+    getValue(): any {
         if (!this._isValid()) {
             throw new Error(`Could not get value for ${this._id} because the mapping is invalid`);
         }

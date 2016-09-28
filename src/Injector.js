@@ -78,7 +78,7 @@ export default class Injector {
         return this._hasOwnMapping(type, name);
     }
 
-    getInstance(type: string, name?: string): mixed {
+    getInstance(type: string, name?: string): any {
         if (!this.hasMapping(type, name)) {
             const nameError = name === undefined ? '' : ` by name ${name}`;
             throw new Error(
