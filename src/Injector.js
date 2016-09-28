@@ -23,7 +23,7 @@ export default class Injector {
         return mapping;
     }
 
-    _getMappingID(type, name = '') {
+    _getMappingID(type, name = '') { // eslint-disable-line class-methods-use-this
         return `${type}|${name}`;
     }
 
@@ -32,7 +32,7 @@ export default class Injector {
         return (this._mappings[mappingID] !== undefined);
     }
 
-    _postConstruct(object) {
+    _postConstruct(object) {  // eslint-disable-line class-methods-use-this
         /* eslint-disable no-nested-ternary */
         const postConstructs = object.postConstructs !== undefined ?
            object.postConstructs instanceof Array ? object.postConstructs : [] : [];
@@ -42,7 +42,7 @@ export default class Injector {
         let method;
         /* eslint-disable guard-for-in */
         // $FlowFixMe should refactor this code once we know what it should be
-        for (index in postConstructs) {
+        for (index in postConstructs) { // eslint-disable-line no-restricted-syntax
             // $FlowFixMe should refactor this code once we know what it should be
             methodName = postConstructs[index];
             method = object[methodName] === undefined ? null : object[methodName];
@@ -104,7 +104,7 @@ export default class Injector {
     injectInto(object) {
         let injectionObject;
         /* eslint-disable guard-for-in, no-param-reassign */
-        for (const member in object) {
+        for (const member in object) {  // eslint-disable-line no-restricted-syntax
             injectionObject = stringToObject(member, object[member]);
 
             if (injectionObject !== null) {

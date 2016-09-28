@@ -30,12 +30,10 @@ export default function injectIntoComponent(Component) {
             return {
                 ...(super.getChildContext ? super.getChildContext() : {}),
                 ...(
-                    injectables.reduce((context, [key]) => {
-                        return {
-                            ...context,
-                            [key]: this.props.injector.getInstance(key)
-                        };
-                    }, {})
+                    injectables.reduce((context, [key]) => ({
+                        ...context,
+                        [key]: this.props.injector.getInstance(key)
+                    }), {})
                 )
             };
         }

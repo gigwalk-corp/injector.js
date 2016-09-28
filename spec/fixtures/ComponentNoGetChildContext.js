@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+
 export default class ComponentNoGetChildContext extends Component {
     static childContextTypes = {
         injectedValue: PropTypes.string.isRequired
@@ -7,6 +8,6 @@ export default class ComponentNoGetChildContext extends Component {
     static injectedValue = 'inject';
 
     render() {
-        return <div/>;
+        return <div />;
     }
 }

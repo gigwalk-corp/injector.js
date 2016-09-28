@@ -2,7 +2,7 @@ import { Injector } from '../src/';
 
 describe('childInjector', () => {
     let injector;
-    beforeEach(() => injector = new Injector());
+    beforeEach(() => { injector = new Injector(); });
     it('defaults to null when it was not instantiated by a parent', () => {
         expect(injector.getParentInjector()).toBeNull();
     });
@@ -32,7 +32,7 @@ describe('childInjector', () => {
     it('throws an error when trying to set a parentInjector which is not an injector (or null)', () => {
         const parentInjector = {};
 
-        expect(() => {injector.setParentInjector(parentInjector);})
+        expect(() => { injector.setParentInjector(parentInjector); })
             .toThrow(new Error('Cannot set the parentInjector because it is not an injector'));
         expect(injector.getParentInjector()).toBeNull();
     });
@@ -41,7 +41,7 @@ describe('childInjector', () => {
         const parentInjector = new Injector();
         injector.setParentInjector(parentInjector);
 
-        expect(() => {injector.setParentInjector(null);}).not.toThrow();
+        expect(() => { injector.setParentInjector(null); }).not.toThrow();
         expect(injector.getParentInjector()).toBeNull();
     });
 
@@ -83,7 +83,7 @@ describe('childInjector', () => {
         childInjector.map('someValue').toValue(someValue);
 
         expect(childInjector.getInstance('someValue')).toBe(someValue);
-        expect(() => {injector.getInstance('someValue');})
+        expect(() => { injector.getInstance('someValue'); })
             .toThrow(new Error('Cannot return instance "someValue" because no mapping has been found'));
     });
 

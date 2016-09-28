@@ -66,7 +66,7 @@ describe('Injector', () => {
         expect(someObject2.someValue).toBe(someValue2);
     });
 
-    it(`Injects a named specific type that doesn't have anything to do with the variable name`, () => {
+    it('Injects a named specific type that doesn\'t have anything to do with the variable name', () => {
         const someValue1 = 'Hello World 1';
         const someValue2 = 'Hello World 2';
 
@@ -93,7 +93,7 @@ describe('Injector', () => {
             someValue: 'inject',
 
             onPostConstruct() {
-                this.counter++;
+                this.counter += 1;
             }
         };
         injector.injectInto(someObject);
@@ -113,7 +113,7 @@ describe('Injector', () => {
             }
 
             onPostConstruct() {
-                this.counter++;
+                this.counter += 1;
             }
         }
 
@@ -164,9 +164,9 @@ describe('Injector', () => {
     });
 
     it('returns a specific error when there is no mapping', () => {
-        expect(() => {injector.getInstance('someObject');})
+        expect(() => { injector.getInstance('someObject'); })
             .toThrow(new Error('Cannot return instance "someObject" because no mapping has been found'));
-        expect(() => {injector.getInstance('someObject', 'someName');})
+        expect(() => { injector.getInstance('someObject', 'someName'); })
             .toThrow(new Error('Cannot return instance "someObject by name someName" because no mapping has been found'));
     });
 
@@ -177,7 +177,8 @@ describe('Injector', () => {
 
         injector.unmap('someValue');
 
-        expect(() => {injector.getInstance('someValue');}).toThrow(new Error('Cannot return instance "someValue" because no mapping has been found'));
+        expect(() => { injector.getInstance('someValue'); })
+            .toThrow(new Error('Cannot return instance "someValue" because no mapping has been found'));
     });
 
     it('can unmap mappings by type and name', () => {
@@ -187,7 +188,7 @@ describe('Injector', () => {
 
         injector.unmap('someValue', 'myName');
 
-        expect(() => {injector.getInstance('someValue', 'myName');})
+        expect(() => { injector.getInstance('someValue', 'myName'); })
             .toThrow(new Error('Cannot return instance "someValue by name myName" because no mapping has been found'));
     });
 
@@ -204,9 +205,9 @@ describe('Injector', () => {
 
         injector.teardown();
 
-        expect(() => {injector.getInstance('someValue');})
+        expect(() => { injector.getInstance('someValue'); })
             .toThrow(new Error('Cannot return instance "someValue" because no mapping has been found'));
-        expect(() => {injector.getInstance('someValue2');})
+        expect(() => { injector.getInstance('someValue2'); })
             .toThrow(new Error('Cannot return instance "someValue2" because no mapping has been found'));
     });
 });

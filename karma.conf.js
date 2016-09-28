@@ -1,5 +1,6 @@
 // Karma configuration
 const path = require('path');
+
 const webpackConfig = {
     devtool: 'inline-source-map',
     module: {
