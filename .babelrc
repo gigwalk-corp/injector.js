@@ -4,9 +4,6 @@
         "stage-0",
         "react"
     ],
-    "plugins": [
-        "add-module-exports"
-    ],
     "env": {
         "production": {
             "plugins": [
