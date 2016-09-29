@@ -1,5 +1,6 @@
 // Karma configuration
 const path = require('path');
+
 const webpackConfig = {
     devtool: 'inline-source-map',
     module: {
@@ -29,7 +30,7 @@ const webpackConfig = {
         }]
     }
 };
-const reporters = ['dots', 'coverage', 'html'];
+const reporters = ['dots', 'coverage'];
 
 if (process.env.CI) {
     reporters.push('coveralls');

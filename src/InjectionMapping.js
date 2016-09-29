@@ -1,5 +1,11 @@
+// @flow
 export default class InjectionMapping {
-    constructor(type, name, id) {
+    _type: mixed;
+    _name: ?string;
+    _id: string;
+    _value: any;
+    _toType: mixed;
+    constructor(type: mixed, name?: string, id: string) {
         this._type = type;
         this._name = name;
         this._id = id;
@@ -8,11 +14,11 @@ export default class InjectionMapping {
         this._toType = null;
     }
 
-    _isValid() {
-        return this._value !== null || this._toType !== null;
+    _isValid(): boolean {
+        return this._value != null || this._toType != null; // eslint-disable-line eqeqeq
     }
 
-    _validateBeforeCreation() {
+    _validateBeforeCreation(): true {
         if (this._isValid()) {
             throw new Error(
                 `Could not create mapping for ${this._id} because it already has been defined`
@@ -22,7 +28,7 @@ export default class InjectionMapping {
         return true;
     }
 
-    toValue(value) {
+    toValue(value: any) {
         if (!this._validateBeforeCreation()) {
             return;
         }
@@ -30,7 +36,7 @@ export default class InjectionMapping {
         this._value = value;
     }
 
-    toType(type) {
+    toType(type: any) {
         if (!this._validateBeforeCreation()) {
             return;
         }
@@ -38,18 +44,19 @@ export default class InjectionMapping {
         this._toType = type;
     }
 
-    toSingleton(Type) {
+    toSingleton(Type: Function) {
         this.toValue(new Type());
     }
 
-    getValue() {
+    getValue(): any {
         if (!this._isValid()) {
             throw new Error(`Could not get value for ${this._id} because the mapping is invalid`);
         }
 
-        if (this._value !== null) {
+        if (this._value != null) {
             return this._value;
-        } else if (this._toType !== null) {
+        } else if (this._toType != null) {
+            // $FlowFixMe should define that it is a instantiable thing
             return new this._toType();
         }
     }

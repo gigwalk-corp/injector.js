@@ -1,3 +1,4 @@
+// @flow weak
 import { PropTypes } from 'react';
 import Injector from './Injector';
 /**
@@ -5,7 +6,7 @@ import Injector from './Injector';
  * @param  {React.Component} Component The Component To Extend
  * @return {React.Component}           Extended Component
  */
-export default function injectIntoComponent(Component) {
+export default function injectIntoComponent(Component: any) {
     if (!Component.hasOwnProperty('childContextTypes')) {
         throw new Error('Expected childContextTypes to be defined on the container element', Component);
     }
@@ -29,12 +30,10 @@ export default function injectIntoComponent(Component) {
             return {
                 ...(super.getChildContext ? super.getChildContext() : {}),
                 ...(
-                    injectables.reduce((context, [key]) => {
-                        return {
-                            ...context,
-                            [key]: this.props.injector.getInstance(key)
-                        };
-                    }, {})
+                    injectables.reduce((context, [key]) => ({
+                        ...context,
+                        [key]: this.props.injector.getInstance(key)
+                    }), {})
                 )
             };
         }

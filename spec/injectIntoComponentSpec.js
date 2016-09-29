@@ -20,8 +20,8 @@ describe('React Integration Inject into Component', () => {
         const InjectedSimpleContainer = injectoIntoComponent(SimpleContainer);
         renderer.render(<InjectedSimpleContainer injector={injector} />);
         const result = renderer.getRenderOutput();
-        expect(result.props.children).toEqual(<SimpleComponent/>);
-        const doc = renderIntoDocument(<InjectedSimpleContainer injector={injector}/>);
+        expect(result.props.children).toEqual(<SimpleComponent />);
+        const doc = renderIntoDocument(<InjectedSimpleContainer injector={injector} />);
         const h1 = TestUtils.findRenderedDOMComponentWithTag(doc, 'h1');
         expect(h1.textContent).toEqual('expected');
     });
@@ -41,11 +41,11 @@ describe('React Integration Inject into Component', () => {
             }
         });
 
-        renderer.render(<AppContainer injector={injector}/>);
+        renderer.render(<AppContainer injector={injector} />);
         const results = renderer.getRenderOutput();
         expect(results.type).toEqual('div');
         expect(results.props.children).toEqual(
-            <UserAvatar/>
+            <UserAvatar />
         );
     });
 });

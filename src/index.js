@@ -1,9 +1,11 @@
+// @flow
 import stringToObject from './stringToObject';
 import InjectionMapping from './InjectionMapping';
 import Injector from './Injector';
+
 const utils = { stringToObject };
 
-export default {
+module.exports = {
     Injector,
     InjectionMapping,
     utils

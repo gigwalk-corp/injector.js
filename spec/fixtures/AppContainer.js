@@ -1,9 +1,9 @@
-import UserAvatar from './UserAvatar';
 import React, { Component, PropTypes } from 'react';
+import UserAvatar from './UserAvatar';
 
 export default class AppContainer extends Component {
     static propTypes = {
-        injector: PropTypes.object
+        injector: PropTypes.object // eslint-disable-line
     };
 
     static childContextTypes = {
@@ -19,7 +19,7 @@ export default class AppContainer extends Component {
     render() {
         return (
             <div>
-                <UserAvatar/>
+                <UserAvatar />
             </div>
         );
     }

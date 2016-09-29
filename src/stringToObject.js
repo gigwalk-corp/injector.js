@@ -1,3 +1,5 @@
+// @flow
+export type InjectorObject = { name: string, type: string };
 /**
  * Parse the value of a object to find out how we should inject
  * @param type The default type in the mapping. Could be overridden by injectionString
@@ -10,22 +12,22 @@
  *    - inject(name="one"):someValue  - Will use named injection with a custom type
  *    - inject(name="one")            - Will inject by name
  */
-export default function stringToObject(type, injectionString) {
+export default function stringToObject(type: string, injectionString: string): ?InjectorObject {
     if (typeof injectionString !== 'string') {
         return null;
     }
 
-    const injectionObject = { name: '', type };
-    const startsWithInjectRegExp = new RegExp('^inject');
+    const injectionObject: InjectorObject = { name: '', type };
+    const startsWithInjectRegExp: RegExp = new RegExp('^inject');
 
     // injectionNameRegExp = new RegExp(/(?<=name=")[^]+?(?=")/),
     // contains a lookbehind, which is not supported by JS
-    const injectionNameRegExp = new RegExp(/[\w:\-]?name[\s]*?=[\s]*?("[^"]+"|'[^']+'|\w+)/);
+    const injectionNameRegExp: RegExp = new RegExp(/[\w:\-]?name[\s]*?=[\s]*?("[^"]+"|'[^']+'|\w+)/);
 
     // This will return everything from the last colon (including the colon)
-    const toTypeRegExp = new RegExp(':[^:]+$');
-    let name;
-    let toType;
+    const toTypeRegExp: RegExp = new RegExp(':[^:]+$');
+    let name: string;
+    let toType: mixed;
 
     if (injectionString === 'inject') {
         // Simple injection

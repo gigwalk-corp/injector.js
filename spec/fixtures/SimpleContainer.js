@@ -9,13 +9,14 @@ export default class SimpleContainer extends Component {
         injectedValue: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired
     };
-    getChildContext() {
+
+    static injectedValue = 'inject';
+
+    getChildContext() { // eslint-disable-line class-methods-use-this
         return {
             name: 'SimpleContainer'
         };
     }
-
-    static injectedValue = 'inject';
 
     render() {
         const { color } = this.props;

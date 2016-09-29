@@ -3,10 +3,11 @@ const path = require('path');
 const moment = require('moment');
 const pkg = require('./package');
 const transformUMDExternal = require('webpack-umd-external');
+
 const banner =
-`${pkg.name} - v${pkg.version} - ${ moment().format('YYYY-MM-DD')}
+`${pkg.name} - v${pkg.version} - ${moment().format('YYYY-MM-DD')}
 ${pkg.homepage}
-Copyright (c) ${ moment().format('YYYY') } ${pkg.author.name}`;
+Copyright (c) ${moment().format('YYYY')} ${pkg.author.name}`;
 
 module.exports = {
     devtool: 'source-map',

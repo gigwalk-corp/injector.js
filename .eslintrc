@@ -14,6 +14,14 @@
         "guard-for-in": 1,
         "no-nested-ternary": 1,
         "no-else-return": 1,
-        "max-len": [2, 150, 1]
+        "max-len": [2, 150, 1],
+        "no-underscore-dangle": 0,
+        "import/no-extraneous-dependencies": 0,
+        "react/jsx-filename-extension": 0,
+        "no-prototype-builtins": 0,
+        "react/jsx-indent": [2, 4]
+    },
+    "globals": {
+        "React$Component"
     }
 }
