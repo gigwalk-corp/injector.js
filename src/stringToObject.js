@@ -22,7 +22,7 @@ export default function stringToObject(type: string, injectionString: string): ?
 
     // injectionNameRegExp = new RegExp(/(?<=name=")[^]+?(?=")/),
     // contains a lookbehind, which is not supported by JS
-    const injectionNameRegExp: RegExp = new RegExp(/[\w:\-]?name[\s]*?=[\s]*?("[^"]+"|'[^']+'|\w+)/);
+    const injectionNameRegExp: RegExp = new RegExp(/[\w:-]?name[\s]*?=[\s]*?("[^"]+"|'[^']+'|\w+)/);
 
     // This will return everything from the last colon (including the colon)
     const toTypeRegExp: RegExp = new RegExp(':[^:]+$');

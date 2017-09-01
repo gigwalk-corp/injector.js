@@ -8,13 +8,13 @@ import Injector from './Injector';
  */
 export default function injectIntoComponent(Component: any) {
     if (!Component.hasOwnProperty('childContextTypes')) {
-        throw new Error('Expected childContextTypes to be defined on the container element', Component);
+        throw new Error('Expected childContextTypes to be defined on the container element');
     }
 
     const injectables = Object.keys(Component).map(key => [key, Component[key]])
         .filter(([, value]) => value === 'inject');
     if (!injectables.length) {
-        throw new Error('Exepected static strings to be defined on the container class', Component);
+        throw new Error('Exepected static strings to be defined on the container class');
     }
 
     const temp = class extends Component {
