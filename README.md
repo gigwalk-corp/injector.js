@@ -208,49 +208,6 @@ This library is completely independent from other libraries.
 You should be able to use the dependency injector together with other frameworks and libraries. As far as my experience goes I have used this in combination with [Backbone.js](https://github.com/documentcloud/backbone/). I have extended Backbone.View, so all my views can automatically be injected by the models of my need.
 An example implementation of this can be found at [Navigator-Injector-Backbone-Command-TodoMVC example](https://github.com/BiggerBoat/nibc-todomvc)
 
-#### React Component Integration
-
-Using the injectIntoComponent utility function you can inject values into a React component:
-
-```js
-import { Injector } from '@gigwalk/injector-js';
-import injectIntoComponent from '@gigwalk/injector-js/lib/injectIntoComponent';
-
-// Injected values are attached to the context of the any of the child components
-class ChildComponent extends Component {
-    contextTypes = {
-        myModel: PropTypes.object.isRequired,
-    };
-
-    render() {
-        const { name, age, photoUrl } = this.context.myModel.attributes();
-        return (
-            <article>
-                <h4>{name}</h4>
-                <p>Age: {age} y/o </p>
-                <img src={photoUrl} alt={`portrait photo of ${name}`} />
-            </article>
-        );
-    }
-}
-
-const Container = injectIntoComponent(class Container extends Component {
-    static myModel = 'inject';
-    static childContextTypes = {
-        myModel: PropTypes.object.isRequired,
-    };
-
-    render() {
-        return (
-            <div>
-                <ChildComponent/>
-            </div>
-        );
-    }
-});
-
-```
-
 ## Running the specs
 
 Injector.js was build with [TDD](http://en.wikipedia.org/wiki/Test-driven_development). Every commit and pull requests gets tested with [Travis-ci](https://travis-ci.org/gigwalk-corp/injector.js). To run the tests locally, run `npm install` and then `npm test`.
