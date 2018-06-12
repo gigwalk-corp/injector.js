@@ -65,16 +65,10 @@
     "lodash": "^4.16.2",
     "moment": "^2.15.1",
     "phantomjs-prebuilt": "^2.1.12",
-    "react": "^15.3.2",
-    "react-addons-test-utils": "^15.3.2",
-    "react-dom": "^15.3.2",
     "webpack": "^1.13.2",
     "webpack-umd-external": "^1.0.2"
   },
   "dependencies": {
     "babel-runtime": "^6.11.6"
-  },
-  "optionalDependencies": {
-    "react": "15"
   }
 }

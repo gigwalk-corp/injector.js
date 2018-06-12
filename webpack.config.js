@@ -13,7 +13,6 @@ module.exports = {
     devtool: 'source-map',
     entry: {
         injector: './src/index',
-        injectIntoContext: './src/injectIntoComponent'
     },
     output: {
         path: path.join(__dirname, './lib/standalone'),
@@ -23,7 +22,6 @@ module.exports = {
     },
     externals: transformUMDExternal({
         './Injector': 'injector.Injector',
-        react: 'React'
     }),
     module: {
         loaders: [{
